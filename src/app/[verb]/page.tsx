@@ -1,3 +1,3 @@
 export default function VerbPage() {
-  return <h1 className={'font-heading'}>verb</h1>
+  return <h2 className={'font-heading text-2xl'}>Indicativo</h2>
 }

@@ -13,8 +13,8 @@ module.exports = {
       transparent: 'transparent',
       current: 'currentColor',
       white: colors.white,
-      primary: colors.gray,
-      accent: colors.violet,
+      primary: colors.stone,
+      accent: colors.orange,
     },
     fontWeight: {
       light: 300,

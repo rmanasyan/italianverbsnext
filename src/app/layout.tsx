@@ -1,7 +1,10 @@
-import { Metadata } from 'next'
-import { fontHeading, fontSans } from '@/lib/fonts'
-import { cn } from '@/lib/utils'
 import './globals.css'
+import { Metadata } from 'next'
+import { twMerge } from 'tailwind-merge'
+import { fontHeading, fontSans } from '@/lib/fonts'
+import { Footer } from '@/components/footer'
+import { Header } from '@/components/header'
+import { Search } from '@/components/search'
 
 export const metadata: Metadata = {
   title: 'Italian Verbs Conjugation',
@@ -16,13 +19,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={cn(
-          'min-h-screen bg-primary-50 font-sans text-lg text-primary-800 antialiased selection:bg-accent-200',
+        className={twMerge(
+          'bg-primary-50 font-sans text-lg text-primary-800 antialiased selection:bg-accent-200',
           fontSans.variable,
           fontHeading.variable
         )}
       >
-        {children}
+        <div
+          className={
+            'mx-auto flex min-h-screen max-w-[840px] flex-col px-16 py-7'
+          }
+        >
+          <Header />
+          <Search />
+          <main className={'my-12 grow'}>{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   )
