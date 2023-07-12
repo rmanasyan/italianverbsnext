@@ -7,7 +7,7 @@ export function Header() {
         <Link
           href={'/'}
           className={
-            'outline-none transition hover:text-primary-700 focus-visible:text-primary-700'
+            'outline-none transition hover:text-accent-800 focus-visible:text-accent-800'
           }
         >
           Italian Verbs Conjugation
