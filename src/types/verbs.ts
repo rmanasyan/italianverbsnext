@@ -6,6 +6,7 @@ export interface Verb {
   forms: string[]
   id: string
   verb: string
+  featured?: boolean
 }
 
 export interface VerbForm {

@@ -26,8 +26,9 @@ const collectionData = async <T extends DocumentData>(
 export const getFeaturedVerbs = cache((): Promise<Verb[]> => {
   const collectionRef: FirebaseFirestore.Query<DocumentData> = firestore
     .collection('verbs')
+    .where('featured', '==', true)
     .orderBy('verb')
-    .limit(5)
+    .limit(10)
 
   return collectionData<Verb>(collectionRef)
 })
@@ -77,3 +78,40 @@ export const getConjugation = cache(
     }
   }
 )
+
+const makeFeaturedVerbs = () => {
+  const verbs = ['amare']
+
+  const collectionRef = firestore.collection('verbs')
+  const batchSize = 30
+  const batches = []
+
+  for (let i = 0; i < verbs.length; i += batchSize) {
+    const batch = verbs.slice(i, i + batchSize)
+    batches.push(batch)
+  }
+
+  const updatePromises = batches.map((batch) => {
+    return collectionRef
+      .where('verb', 'in', batch)
+      .get()
+      .then((querySnapshot) => {
+        const batchUpdate = firestore.batch()
+
+        querySnapshot.forEach((doc) => {
+          const docRef = collectionRef.doc(doc.id)
+          batchUpdate.update(docRef, { featured: true })
+        })
+
+        return batchUpdate.commit()
+      })
+  })
+
+  Promise.all(updatePromises)
+    .then(() => {
+      console.log('Documents updated successfully.')
+    })
+    .catch((error) => {
+      console.error('Error updating documents:', error)
+    })
+}

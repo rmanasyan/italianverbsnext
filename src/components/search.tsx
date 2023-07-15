@@ -4,7 +4,7 @@ import { VerbLink } from '@/components/verb-link'
 export function Search() {
   return (
     <>
-      <p className={'inline-flex space-x-1.5 pb-1'}>
+      <p className={'inline-flex space-x-1.5 pb-2'}>
         <span>Type the verb you wish to conjugate (ie:</span>
         <span>
           🍕<VerbLink href={'mangiare'}>mangiare</VerbLink>,
