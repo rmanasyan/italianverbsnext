@@ -1,4 +1,4 @@
-import { VerbLink } from '@/components/verb-link'
+import { FeaturedVerbs } from '@/components/featured-verbs'
 
 export default function HomePage() {
   return (
@@ -6,9 +6,7 @@ export default function HomePage() {
       <h2 className={'font-heading text-2xl'}>
         Or find the most popular Italian verbs below*
       </h2>
-      <section className={'px-3'}>
-        <VerbLink href={'abbandonare'}>abbandonare</VerbLink>
-      </section>
+      <section className={'px-3'}>{<FeaturedVerbs />}</section>
     </>
   )
 }
