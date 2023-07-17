@@ -1,26 +1,20 @@
 import { IconSearch } from '@/components/icons/icon-search'
-import { VerbLink } from '@/components/verb-link'
+import { VerbLink } from '@/components/shared/verb-link'
 
 export function Search() {
   return (
     <>
-      <p className={'inline-flex space-x-1.5 pb-2'}>
-        <span>Type the verb you wish to conjugate (ie:</span>
-        <span>
-          🍕<VerbLink href={'mangiare'}>mangiare</VerbLink>,
-        </span>
-        <span>
-          😴<VerbLink href={'dormire'}>dormire</VerbLink>,
-        </span>
-        <span>
-          💕<VerbLink href={'amare'}>amare</VerbLink>)
-        </span>
+      <p className={'pb-2'}>
+        Type the verb you wish to conjugate (ie:{' '}
+        <VerbLink href={'mangiare'}>mangiare</VerbLink>,{' '}
+        <VerbLink href={'dormire'}>dormire</VerbLink>,{' '}
+        <VerbLink href={'amare'}>amare</VerbLink>)
       </p>
 
       <form className={'group relative'} role="search">
         <div
           className={
-            'pointer-events-none absolute inset-y-0 left-4 flex items-center text-primary-600 transition'
+            'pointer-events-none absolute inset-y-0 left-4 flex items-center text-primary-500 transition'
           }
           aria-hidden="true"
         >

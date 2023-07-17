@@ -1,7 +1,7 @@
 import './globals.css'
 import { Metadata } from 'next'
 import { twMerge } from 'tailwind-merge'
-import { fontHeading, fontSans } from '@/lib/fonts'
+import { fontHeading, fontSans } from '@/utils/fonts'
 import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
 import { Search } from '@/components/search'
@@ -32,7 +32,7 @@ export default function RootLayout({
         >
           <Header />
           <Search />
-          <main className={'my-12 grow'}>{children}</main>
+          <main className={'my-8 grow'}>{children}</main>
           <Footer />
         </div>
       </body>

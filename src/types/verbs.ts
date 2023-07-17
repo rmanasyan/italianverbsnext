@@ -30,3 +30,20 @@ export interface Conjugation {
     [key: number]: VerbTense
   }
 }
+
+export enum ConjugationGroup {
+  Indicativo,
+  Congiuntivo,
+  Condizionale,
+  Imperativo,
+  Infinito,
+  Participio,
+  Gerundio,
+}
+
+export interface ConjugationDisplaySetting {
+  group: ConjugationGroup
+  nameIta: string
+  nameEng: string
+  order: number
+}

@@ -1,4 +1,4 @@
-import { FeaturedVerbs } from '@/components/featured-verbs'
+import { FeaturedVerbs } from '@/components/home/featured-verbs'
 
 export default function HomePage() {
   return (

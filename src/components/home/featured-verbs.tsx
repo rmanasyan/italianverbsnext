@@ -1,6 +1,6 @@
 import { Verb } from '@/types/verbs'
-import { getFeaturedVerbs } from '@/utils/firestore'
-import { VerbLink } from '@/components/verb-link'
+import { getFeaturedVerbs } from '@/db/firestore'
+import { VerbLink } from '@/components/shared/verb-link'
 
 export async function FeaturedVerbs() {
   const verbs = await getFeaturedVerbs()

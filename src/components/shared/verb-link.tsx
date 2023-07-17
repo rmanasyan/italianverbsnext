@@ -1,3 +1,4 @@
+import { ComponentProps } from 'react'
 import Link from 'next/link'
 import { twMerge } from 'tailwind-merge'
 
@@ -6,7 +7,7 @@ export function VerbLink({
   className,
   children,
   ...props
-}: React.ComponentProps<typeof Link>) {
+}: ComponentProps<typeof Link>) {
   return (
     <Link
       className={twMerge(

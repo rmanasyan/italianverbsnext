@@ -1,7 +1,7 @@
 import { cache } from 'react'
 import { DocumentData, QuerySnapshot } from 'firebase-admin/firestore'
 import { Conjugation, Verb } from '@/types/verbs'
-import { firebase } from '@/lib/firebase'
+import { firebase } from '@/db/firebase'
 
 const firestore = firebase.firestore()
 
