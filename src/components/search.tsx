@@ -1,4 +1,4 @@
-import { IconSearch } from '@/components/icons/icon-search'
+import { Search as IconSearch } from 'lucide-react'
 import { VerbLink } from '@/components/shared/verb-link'
 
 export function Search() {
@@ -14,7 +14,7 @@ export function Search() {
       <form className={'group relative'} role="search">
         <div
           className={
-            'pointer-events-none absolute inset-y-0 left-4 flex items-center text-primary-500 transition'
+            'pointer-events-none absolute inset-y-0 left-4 flex items-center text-primary-400 transition'
           }
           aria-hidden="true"
         >

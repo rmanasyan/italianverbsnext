@@ -1,5 +1,5 @@
+import { ScrollText as IconScrollText } from 'lucide-react'
 import { Conjugation } from '@/types/verbs'
-import { IconPin } from '@/components/icons/icon-pin'
 
 interface ConjugationSummaryProps {
   conjugation: Conjugation
@@ -13,7 +13,7 @@ export function ConjugationSummary({
   return (
     <>
       <h2 className={'flex items-center px-4 text-xl'}>
-        <IconPin className={'mr-2 text-primary-500'} />
+        <IconScrollText className={'mr-2 text-primary-400'} />
         <span className={'mr-1'}>{decodeURI(paramsVerb)}</span>
         {conjugation.verb !== paramsVerb && `(${conjugation.verb})`}
       </h2>
