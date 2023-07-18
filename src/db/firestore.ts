@@ -28,7 +28,7 @@ export const getFeaturedVerbs = cache((): Promise<Verb[]> => {
     .collection('verbs')
     .where('featured', '==', true)
     .orderBy('verb')
-    .limit(10)
+    .limit(Number(process.env.FEATURED_VERBS_LIMIT || 10))
 
   return collectionData<Verb>(collectionRef)
 })
