@@ -79,6 +79,7 @@ export const getConjugation = cache(
   }
 )
 
+// update firestore collection with featured field
 const makeFeaturedVerbs = () => {
   const verbs = ['amare']
 
