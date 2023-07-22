@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import {
   Conjugation,
   ConjugationDisplaySetting,
@@ -34,7 +35,18 @@ export function ConjugationInfo({ conjugation }: ConjugationInfoProps) {
     <div className={'my-5'}>
       {conjugationGroupList.map((conjugationGroup) => (
         <section key={conjugationGroup.id}>
-          <h2 className={'pb-2 font-heading text-2xl'}>
+          <h2
+            className={'group relative pb-2 font-heading text-2xl'}
+            id={conjugationGroup.name.toLowerCase()}
+          >
+            <Link
+              href={`#${conjugationGroup.name.toLowerCase()}`}
+              className={
+                'absolute -left-7 text-primary-400 opacity-0 outline-none transition hover:text-accent-700 focus-visible:opacity-100 group-hover:opacity-100'
+              }
+            >
+              #
+            </Link>
             {conjugationGroup.name}
           </h2>
 
