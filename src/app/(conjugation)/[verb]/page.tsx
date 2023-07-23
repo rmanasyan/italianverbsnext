@@ -15,9 +15,9 @@ export default async function VerbPage({ params }: VerbPageProps) {
   }
 
   return (
-    <>
+    <section lang="it">
       <ConjugationSummary conjugation={conjugation} paramsVerb={params.verb} />
       <ConjugationInfo conjugation={conjugation} />
-    </>
+    </section>
   )
 }
