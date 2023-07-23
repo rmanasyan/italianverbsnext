@@ -1,9 +1,9 @@
-import { SearchCombobox } from '@/components/search-combobox'
+import { SearchForm } from '@/components/search-form'
 import { VerbLink } from '@/components/shared/verb-link'
 
 export function Search() {
   return (
-    <div className={'h-24'}>
+    <>
       <p className={'pb-2'}>
         Type the verb you wish to conjugate (ie:{' '}
         <VerbLink href={'mangiare'}>mangiare</VerbLink>,{' '}
@@ -11,7 +11,7 @@ export function Search() {
         <VerbLink href={'amare'}>amare</VerbLink>)
       </p>
 
-      <SearchCombobox />
-    </div>
+      <SearchForm />
+    </>
   )
 }

@@ -26,6 +26,9 @@ module.exports = {
         sans: ['var(--font-sans)', ...fontFamily.sans],
         heading: ['var(--font-heading)', ...fontFamily.sans],
       },
+      animation: {
+        'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      },
     },
   },
   plugins: [require('@headlessui/tailwindcss')],
