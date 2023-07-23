@@ -24,6 +24,7 @@ export function SearchForm() {
   const router = useRouter()
   const pathname = usePathname()
   const optionsRef = useRef<Array<HTMLLIElement | null>>([])
+  const inputRef = useRef<HTMLInputElement | null>(null)
 
   const [query, setQuery] = useState('')
   const [isOpen, setIsOpen] = useState(false)
@@ -81,20 +82,36 @@ export function SearchForm() {
     }
   }
 
+  // focus search field on '/' press
+  useEffect(() => {
+    const onKeyup = (e: KeyboardEvent) => {
+      if (e.key === '/') {
+        inputRef.current?.focus()
+      }
+    }
+
+    document.addEventListener('keyup', onKeyup)
+    return () => document.removeEventListener('keydown', onKeyup)
+  }, [])
+
+  // scroll search results when using arrow keys
   useEffect(() => {
     optionsRef.current[currentIndex]?.scrollIntoView({
       block: 'nearest',
     })
   }, [currentIndex])
 
+  // reset search results list selected item when query changes
   useEffect(() => {
     setCurrentIndex(-1)
   }, [query])
 
+  // open search results listbox if verbs found
   useEffect(() => {
     setIsOpen(!!filteredVerbs?.length)
   }, [filteredVerbs])
 
+  // close search list on navigation
   useEffect(() => {
     setIsOpen(false)
   }, [pathname])
@@ -103,13 +120,32 @@ export function SearchForm() {
     <>
       <form role="search" onSubmit={handleSubmit} className={'group relative'}>
         <div
-          className={twMerge(
-            'pointer-events-none absolute inset-y-0 left-4 flex items-center text-primary-400 transition',
-            isLoading && 'animate-pulse-fast'
-          )}
+          className={
+            'pointer-events-none absolute inset-y-0 left-4 flex items-center'
+          }
           aria-hidden="true"
         >
-          <IconSearch />
+          <IconSearch
+            className={twMerge(
+              'text-primary-400 transition group-focus-within:text-accent-400',
+              isLoading && 'animate-pulse-fast'
+            )}
+          />
+        </div>
+
+        <div
+          className={
+            'pointer-events-none absolute inset-y-0 right-4 flex items-center'
+          }
+          aria-hidden="true"
+        >
+          <span
+            className={
+              'grid h-6 w-6 place-items-center rounded border bg-primary-50 leading-3 text-primary-300 opacity-100 transition group-focus-within:opacity-0'
+            }
+          >
+            /
+          </span>
         </div>
 
         <input
@@ -117,6 +153,7 @@ export function SearchForm() {
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           onKeyDown={handleKeyDown}
+          ref={inputRef}
           className={
             'w-full appearance-none rounded-sm border border-primary-800 bg-white px-11 py-3 caret-accent-400 outline-none ring-accent-100 transition focus:border-accent-400 focus:ring-4'
           }
