@@ -118,7 +118,7 @@ export function SearchForm() {
           onChange={(event) => setQuery(event.target.value)}
           onKeyDown={handleKeyDown}
           className={
-            'w-full appearance-none rounded-sm border border-primary-800 bg-white px-11 py-3 outline-none ring-accent-100 transition focus:border-accent-400 focus:ring-4'
+            'w-full appearance-none rounded-sm border border-primary-800 bg-white px-11 py-3 caret-accent-400 outline-none ring-accent-100 transition focus:border-accent-400 focus:ring-4'
           }
           autoComplete={'off'}
           aria-label="Search italian verb conjugation"
