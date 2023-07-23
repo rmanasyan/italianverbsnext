@@ -1,9 +1,10 @@
-import { ScrollText as IconScrollText } from 'lucide-react'
+import { Loader2 as IconLoader } from 'lucide-react'
+import { PageHeading } from '@/components/shared/page-heading'
 
 export default function Loading() {
   return (
-    <div className={'flex animate-pulse-fast items-center px-4 text-xl'}>
-      <IconScrollText className={'mr-2 text-primary-400'} /> ...
-    </div>
+    <PageHeading>
+      <IconLoader className={'animate-spin text-primary-400'} />
+    </PageHeading>
   )
 }

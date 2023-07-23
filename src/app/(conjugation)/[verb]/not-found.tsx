@@ -1,9 +1,18 @@
+import { Scroll as IconScroll } from 'lucide-react'
+import { PageHeading } from '@/components/shared/page-heading'
+
 export default function NotFound() {
   return (
-    <div className={'px-5'}>
-      <span className={'font-bold'}>Italian verb not found,</span>
-      <br /> it is either non-existent or the Italians invented something new
-      ¯\_(ツ)_/¯
-    </div>
+    <>
+      <PageHeading>
+        <IconScroll className={'text-primary-400'} />
+        <div>Italian verb not found</div>
+      </PageHeading>
+
+      <p className={'p-5'}>
+        It is either non-existent or the Italians invented something new
+        ¯\_(ツ)_/¯
+      </p>
+    </>
   )
 }

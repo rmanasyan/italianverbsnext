@@ -1,5 +1,6 @@
 import { ScrollText as IconScrollText } from 'lucide-react'
 import { Conjugation } from '@/types/verbs'
+import { PageHeading } from '@/components/shared/page-heading'
 
 interface ConjugationSummaryProps {
   conjugation: Conjugation
@@ -12,11 +13,13 @@ export function ConjugationSummary({
 }: ConjugationSummaryProps) {
   return (
     <>
-      <h2 className={'flex items-center px-4 text-xl'}>
-        <IconScrollText className={'mr-2 text-primary-400'} />
-        <span className={'mr-1'}>{decodeURI(paramsVerb)}</span>
-        {conjugation.verb !== paramsVerb && `(${conjugation.verb})`}
-      </h2>
+      <PageHeading>
+        <IconScrollText className={'text-primary-400'} />
+        <div>
+          <span className={'mr-1.5'}>{decodeURI(paramsVerb)}</span>
+          {conjugation.verb !== paramsVerb && `(${conjugation.verb})`}
+        </div>
+      </PageHeading>
     </>
   )
 }

@@ -1,4 +1,5 @@
 import './globals.css'
+import { ReactNode } from 'react'
 import { Metadata } from 'next'
 import { twMerge } from 'tailwind-merge'
 import { fontHeading, fontSans } from '@/utils/fonts'
@@ -11,11 +12,7 @@ export const metadata: Metadata = {
   description: 'Search and conjugate Italian verbs',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body

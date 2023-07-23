@@ -1,4 +1,4 @@
-import { SearchForm } from '@/components/search-form'
+import { SearchForm } from '@/components/shared/search-form'
 import { VerbLink } from '@/components/shared/verb-link'
 
 export function Search() {
