@@ -33,6 +33,15 @@ export const getFeaturedVerbs = cache((): Promise<Verb[]> => {
   return collectionData<Verb>(collectionRef)
 })
 
+export const getVerbs = cache((): Promise<Verb[]> => {
+  const collectionRef: FirebaseFirestore.Query<DocumentData> = firestore
+    .collection('verbs')
+    .orderBy('verb')
+    .limit(Number(process.env.VERBS_LIMIT || 10))
+
+  return collectionData<Verb>(collectionRef)
+})
+
 export const getFilteredVerbs = cache(
   (searchQuery: string): Promise<Verb[]> => {
     const collectionRef: FirebaseFirestore.Query<DocumentData> = firestore
