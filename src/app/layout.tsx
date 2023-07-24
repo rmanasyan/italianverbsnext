@@ -9,7 +9,9 @@ import { Search } from '@/components/search'
 
 export const metadata: Metadata = {
   title: 'Italian Verbs Conjugation',
-  description: 'Search and conjugate Italian verbs',
+  description:
+    'Search and conjugate Italian verbs. Fast and easy to use, no ads. More than 12000 Italian verbs with forms',
+  creator: 'Roman Manasyan',
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
