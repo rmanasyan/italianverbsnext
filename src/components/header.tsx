@@ -2,8 +2,12 @@ import Link from 'next/link'
 
 export function Header() {
   return (
-    <header className={'mb-12'}>
-      <h1 className={'font-heading text-[80px] leading-[0.8] tracking-wide'}>
+    <header className={'mb-7 md:mb-12'}>
+      <h1
+        className={
+          'font-heading text-4xl md:text-[5rem] md:leading-[0.8] md:tracking-wide'
+        }
+      >
         <Link
           href={'/'}
           className={

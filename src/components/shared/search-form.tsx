@@ -33,7 +33,7 @@ export function SearchForm() {
   const debouncedQuery = useDebounce(query, 300)
 
   const { data: filteredVerbs, isLoading } = useSWR(
-    debouncedQuery ? ['/api/verbs', debouncedQuery] : null,
+    debouncedQuery.length > 1 ? ['/api/verbs', debouncedQuery] : null,
     fetcher
   )
 

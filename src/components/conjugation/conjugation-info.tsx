@@ -36,7 +36,7 @@ export function ConjugationInfo({ conjugation }: ConjugationInfoProps) {
       {conjugationGroupList.map((conjugationGroup) => (
         <section key={conjugationGroup.id}>
           <h2
-            className={'group relative pb-2 font-heading text-2xl'}
+            className={'group relative pb-2 font-heading text-xl md:text-2xl'}
             id={conjugationGroup.name.toLowerCase()}
           >
             <Link
@@ -50,7 +50,7 @@ export function ConjugationInfo({ conjugation }: ConjugationInfoProps) {
             {conjugationGroup.name}
           </h2>
 
-          <div className={'mb-8 grid grid-cols-2 gap-4'}>
+          <div className={'mb-8 grid grid-cols-1 gap-4 md:grid-cols-2'}>
             {tensesByGroup(conjugationGroup.id).map((tense) => (
               <ConjugationTense key={tense.name} tense={tense} />
             ))}

@@ -7,7 +7,7 @@ export async function GET(request: Request) {
   const query = searchParams.get('q')
   let verbs: Verb[] = []
 
-  if (query) {
+  if (query && query?.length > 1) {
     verbs = await getFilteredVerbs(query)
   }
 
