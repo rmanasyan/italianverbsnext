@@ -126,8 +126,9 @@ export function SearchForm() {
           aria-hidden="true"
         >
           <IconSearch
+            strokeWidth={1}
             className={twMerge(
-              'text-primary-400 transition group-focus-within:text-accent-400',
+              'text-primary-500 transition group-focus-within:text-accent-500',
               isLoading && 'animate-pulse-fast'
             )}
           />
@@ -178,7 +179,7 @@ export function SearchForm() {
               >
                 <span
                   className={twMerge(
-                    'underline decoration-1 underline-offset-2 transition group-hover/item:bg-accent-100 group-hover/item:decoration-accent-400',
+                    'rounded-sm underline decoration-1 underline-offset-2 transition group-hover/item:bg-accent-100 group-hover/item:decoration-accent-400',
                     index === currentIndex &&
                       'bg-accent-100 decoration-accent-400'
                   )}
