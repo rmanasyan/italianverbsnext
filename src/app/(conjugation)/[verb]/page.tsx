@@ -30,9 +30,6 @@ export async function generateMetadata({
   return {
     title: `${capitalizedVerb} Italian verb conjugation | Conjugate verb ${verb}`,
     description: `Conjugate Italian verb ${verb}: indicativo, congiuntivo, condizionale, imperativo, infinito, participio and gerundio forms of the verb ${verb}`,
-    ...(process.env.NEXT_PUBLIC_APP_URL && {
-      metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL),
-    }),
     alternates: {
       ...(isVerbForm && { canonical: '/' + conjugation?.verb }),
     },
