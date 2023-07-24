@@ -1,8 +1,8 @@
 {
   "name": "Italian Verbs Conjugation",
   "short_name": "Italian Verbs Conjugation",
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
+  "theme_color": "#f9fafb",
+  "background_color": "#f9fafb",
   "display": "standalone",
   "start_url": "/",
   "icons": [
