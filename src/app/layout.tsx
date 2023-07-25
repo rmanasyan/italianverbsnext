@@ -4,6 +4,7 @@ import { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/react'
 import { twMerge } from 'tailwind-merge'
 import { fontHeading, fontSans } from '@/utils/fonts'
+import { siteConfig } from '@/utils/site-config'
 import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
 import { Search } from '@/components/search'
@@ -13,8 +14,28 @@ export const metadata: Metadata = {
   description:
     'Search and conjugate Italian verbs. Fast and easy to use, no ads. More than 12000 Italian verbs with forms',
   creator: 'Roman Manasyan',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || ''),
+  metadataBase: new URL(siteConfig.url),
   manifest: '/manifest.webmanifest',
+  openGraph: {
+    type: 'website',
+    url: siteConfig.url,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
+    images: [
+      {
+        url: `${siteConfig.url}/og.png`,
+        width: 512,
+        height: 512,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary',
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: [`${siteConfig.url}/og.png`],
+  },
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
