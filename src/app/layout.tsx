@@ -25,16 +25,20 @@ export const metadata: Metadata = {
     images: [
       {
         url: `${siteConfig.url}/og.png`,
-        width: 512,
-        height: 512,
+        width: 1280,
+        height: 720,
       },
     ],
   },
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     title: siteConfig.name,
     description: siteConfig.description,
     images: [`${siteConfig.url}/og.png`],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 }
 
