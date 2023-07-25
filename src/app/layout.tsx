@@ -28,7 +28,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         )}
       >
         <div
-          className={'mx-auto flex min-h-screen max-w-screen-md flex-col p-7'}
+          className={'mx-auto flex min-h-screen max-w-screen-md flex-col p-8'}
         >
           <Header />
           <Search />
