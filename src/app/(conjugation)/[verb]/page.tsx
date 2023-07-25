@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { capitalize } from '@/utils/capitalize'
-import { getConjugation } from '@/db/firestore'
+import { getConjugation, getFeaturedVerbs, getVerbs } from '@/db/firestore'
 import { ConjugationInfo } from '@/components/conjugation/conjugation-info'
 import { ConjugationSummary } from '@/components/conjugation/conjugation-summary'
 
@@ -34,6 +34,31 @@ export async function generateMetadata({
       ...(isVerbForm && { canonical: '/' + conjugation?.verb }),
     },
   }
+}
+
+export async function generateStaticParams(): Promise<
+  Array<VerbPageProps['params']>
+> {
+  type StaticPages = 'featured' | 'all' | undefined
+
+  let staticParams: Array<VerbPageProps['params']> = []
+
+  const generateStaticPages: StaticPages = process.env
+    .GENERATE_STATIC_PAGES as StaticPages
+
+  if (!generateStaticPages) {
+    return []
+  }
+
+  if (generateStaticPages === 'featured') {
+    staticParams = await getFeaturedVerbs()
+  }
+
+  if (generateStaticPages === 'all') {
+    staticParams = await getVerbs()
+  }
+
+  return staticParams.map((verb) => ({ verb: verb.verb }))
 }
 
 export default async function VerbPage({ params }: VerbPageProps) {
