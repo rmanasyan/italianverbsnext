@@ -6,9 +6,10 @@ import {
   useEffect,
   useRef,
   useState,
+  useTransition,
 } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
-import { Search as IconSearch } from 'lucide-react'
+import { Loader as IconLoader, Search as IconSearch } from 'lucide-react'
 import useSWR from 'swr'
 import { twMerge } from 'tailwind-merge'
 import { Verb } from '@/types/verbs'
@@ -29,6 +30,7 @@ export function SearchForm() {
   const [query, setQuery] = useState('')
   const [isOpen, setIsOpen] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(-1)
+  const [isPending, startTransition] = useTransition()
 
   const debouncedQuery = useDebounce(query, 300)
 
@@ -44,7 +46,9 @@ export function SearchForm() {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const filteredVerb = filteredVerbs?.[currentIndex]?.verb
-    router.push(filteredVerb || query)
+
+    startTransition(() => router.push(filteredVerb || query))
+
     setQuery('')
     setIsOpen(false)
   }
@@ -52,7 +56,8 @@ export function SearchForm() {
   const handleClick = (verb: string) => {
     setQuery('')
     setIsOpen(false)
-    router.push(verb)
+
+    startTransition(() => router.push(verb))
   }
 
   const handleKeyDown = (event: ReactKeyboardEvent<HTMLInputElement>) => {
@@ -125,13 +130,17 @@ export function SearchForm() {
           }
           aria-hidden="true"
         >
-          <IconSearch
-            strokeWidth={1}
-            className={twMerge(
-              'text-primary-500 transition group-focus-within:text-accent-500',
-              isLoading && 'animate-pulse-fast'
-            )}
-          />
+          {isLoading || isPending ? (
+            <IconLoader
+              strokeWidth={1}
+              className="animate-spin text-primary-500"
+            />
+          ) : (
+            <IconSearch
+              strokeWidth={1}
+              className="text-primary-500 transition group-focus-within:text-accent-500"
+            />
+          )}
         </div>
 
         <div
