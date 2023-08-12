@@ -10,13 +10,13 @@ export async function GET(request: Request) {
 
   if (query && query?.length > 1) {
     if (!process.env.API_SEARCH_FILESTORE) {
-      console.time('searchfire')
+      console.time('searchfire ' + query)
       verbs = await getFilteredVerbs(query)
-      console.timeEnd('searchfire')
+      console.timeEnd('searchfire ' + query)
     } else {
-      console.time('searchfile')
+      console.time('searchfile ' + query)
       verbs = getFilteredVerbsFromArray(query)
-      console.timeEnd('searchfile')
+      console.timeEnd('searchfile ' + query)
     }
   }
 
