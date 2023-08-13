@@ -63,8 +63,6 @@ export const getConjugation = cache(
       .orderBy('verb')
       .limit(2)
 
-    console.time('getConjugation')
-
     const [verbData] = await collectionData<Verb>(verbsRef)
 
     if (!verbData) {
@@ -78,8 +76,6 @@ export const getConjugation = cache(
           .doc(verbData.conjugationId)
           .get()
       ).data()
-
-      console.timeEnd('getConjugation')
 
       return {
         ...conjugationData,
