@@ -1,7 +1,7 @@
 import './globals.css'
 import { ReactNode } from 'react'
 import { Metadata } from 'next'
-import { Analytics } from '@vercel/analytics/react'
+import Script from 'next/script'
 import { twMerge } from 'tailwind-merge'
 import { fontHeading, fontSans } from '@/utils/fonts'
 import { siteConfig } from '@/utils/site-config'
@@ -60,7 +60,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <main className={'my-8 grow'}>{children}</main>
           <Footer />
         </div>
-        <Analytics />
+
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-X148B71F9D" />
+        <Script id="google-analytics">
+          {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-X148B71F9D');
+        `}
+        </Script>
       </body>
     </html>
   )
