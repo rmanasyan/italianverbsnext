@@ -43,6 +43,8 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  const includeGoogleTag = process.env.INCLUDE_GOOGLE_TAG === 'true' || false
+
   return (
     <html lang="en">
       <body
@@ -61,15 +63,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <Footer />
         </div>
 
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-X148B71F9D" />
-        <Script id="google-analytics">
-          {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-X148B71F9D');
-        `}
-        </Script>
+        {includeGoogleTag && (
+          <>
+            <Script src="https://www.googletagmanager.com/gtag/js?id=G-X148B71F9D" />
+            <Script id="google-analytics">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-X148B71F9D');
+              `}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   )

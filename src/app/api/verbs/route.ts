@@ -9,7 +9,7 @@ export async function GET(request: Request) {
   let verbs: Verb[] = []
 
   if (query && query?.length > 1) {
-    if (!process.env.API_SEARCH_FILESTORE) {
+    if (!(process.env.API_SEARCH_FILESTORE === 'true')) {
       verbs = await getFilteredVerbs(query)
     } else {
       verbs = getFilteredVerbsFromArray(query)
