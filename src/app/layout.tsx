@@ -69,7 +69,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
       {includeGoogleTag && (
         <>
-          <GoogleTagManager gtmId="G-X148B71F9D" />
+          <GoogleTagManager gtmId="GTM-5SNHMRVT" />
           <WebVitals />
         </>
       )}
