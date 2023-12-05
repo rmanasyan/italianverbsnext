@@ -1,13 +1,16 @@
 import './globals.css'
 import { ReactNode } from 'react'
 import { Metadata } from 'next'
-import Script from 'next/script'
+// TODO: update after next 14.0.4
+// @ts-ignore
+import { GoogleTagManager } from '@next/third-parties/google'
 import { twMerge } from 'tailwind-merge'
 import { fontHeading, fontSans } from '@/utils/fonts'
 import { siteConfig } from '@/utils/site-config'
 import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
 import { Search } from '@/components/search'
+import { WebVitals } from '@/components/web-vitals'
 
 export const metadata: Metadata = {
   title: 'Italian Verbs Conjugation',
@@ -62,21 +65,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <main className={'my-8 grow'}>{children}</main>
           <Footer />
         </div>
-
-        {includeGoogleTag && (
-          <>
-            <Script src="https://www.googletagmanager.com/gtag/js?id=G-X148B71F9D" />
-            <Script id="google-analytics">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'G-X148B71F9D');
-              `}
-            </Script>
-          </>
-        )}
       </body>
+
+      {includeGoogleTag && (
+        <>
+          <GoogleTagManager gtmId="G-X148B71F9D" />
+          <WebVitals />
+        </>
+      )}
     </html>
   )
 }
