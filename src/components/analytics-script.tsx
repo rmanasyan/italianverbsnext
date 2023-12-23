@@ -9,8 +9,6 @@ export function AnalyticsScript() {
 
   return (
     <>
-      <Script data-domain="italianverbs.info" src="https://analytics.mnsn.pro/js/script.js" />
-
       <Script src="https://www.googletagmanager.com/gtag/js?id=G-X148B71F9D" />
       <Script id="google-analytics">
         {`
