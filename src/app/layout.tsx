@@ -1,16 +1,13 @@
 import './globals.css'
 import { ReactNode } from 'react'
 import { Metadata } from 'next'
-// TODO: update after next 14.0.4
-// @ts-ignore
-import { GoogleTagManager } from '@next/third-parties/google'
+import Script from 'next/script'
 import { twMerge } from 'tailwind-merge'
 import { fontHeading, fontSans } from '@/utils/fonts'
 import { siteConfig } from '@/utils/site-config'
 import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
 import { Search } from '@/components/search'
-import { WebVitals } from '@/components/web-vitals'
 
 export const metadata: Metadata = {
   title: 'Italian Verbs Conjugation',
@@ -46,8 +43,6 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  const includeGoogleTag = process.env.INCLUDE_GOOGLE_TAG === 'true' || false
-
   return (
     <html lang="en">
       <body
@@ -67,12 +62,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </div>
       </body>
 
-      {includeGoogleTag && (
-        <>
-          <GoogleTagManager gtmId="GTM-5SNHMRVT" />
-          <WebVitals />
-        </>
-      )}
+      <Script
+        data-domain="italianverbs.info"
+        src="https://analytics.mnsn.pro/js/script.js"
+      />
     </html>
   )
 }
