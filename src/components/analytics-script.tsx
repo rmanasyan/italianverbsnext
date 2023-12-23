@@ -9,6 +9,8 @@ export function AnalyticsScript() {
 
   return (
     <>
+      <Script src="https://umami.mnsn.pro/script.js" data-website-id="e8159e7b-eb86-431c-bac5-dc9f1deefd59" />
+
       <Script src="https://www.googletagmanager.com/gtag/js?id=G-X148B71F9D" />
       <Script id="google-analytics">
         {`
