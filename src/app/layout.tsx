@@ -1,10 +1,10 @@
 import './globals.css'
 import { ReactNode } from 'react'
 import { Metadata } from 'next'
-import Script from 'next/script'
 import { twMerge } from 'tailwind-merge'
 import { fontHeading, fontSans } from '@/utils/fonts'
 import { siteConfig } from '@/utils/site-config'
+import { AnalyticsScript } from '@/components/analytics-script'
 import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
 import { Search } from '@/components/search'
@@ -62,10 +62,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </div>
       </body>
 
-      <Script
-        data-domain="italianverbs.info"
-        src="https://analytics.mnsn.pro/js/script.js"
-      />
+      <AnalyticsScript />
     </html>
   )
 }
