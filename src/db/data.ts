@@ -1,20 +1,22 @@
+import { cache } from 'react'
+import { sql } from '@/db/postgres'
+import { Conjugation, Verb } from '@/types/verbs'
+
 // CREATE TABLE IF NOT EXISTS verbs (
 //   id VARCHAR(24) NOT NULL PRIMARY KEY,
 //   conjugation_id VARCHAR(24) NOT NULL,
 //   json_data JSONB NOT NULL
 // );
+//
 // CREATE INDEX idx_conjugation_id ON verbs(conjugation_id);
 // CREATE INDEX idx_json_data_forms ON verbs USING GIN ((json_data->'forms'));
 // CREATE INDEX idx_json_data_verb ON verbs USING GIN ((json_data->'verb'));
+// CREATE INDEX idx_json_data_featured ON verbs USING GIN ((json_data->'featured'));
 //
 // CREATE TABLE IF NOT EXISTS conjugations (
 //   id VARCHAR(24) NOT NULL PRIMARY KEY,
 //   json_data JSONB NOT NULL
 // );
-
-import { cache } from 'react'
-import { sql } from '@/db/postgres'
-import { Conjugation, Verb } from '@/types/verbs'
 
 export const getFeaturedVerbs = cache(async (): Promise<Verb[]> => {
   const rows = await sql<Array<{ data: Verb }>>`
@@ -38,8 +40,6 @@ export const getVerbs = cache(async (): Promise<Verb[]> => {
 })
 
 export const getFilteredVerbs = cache(async (searchQuery: string): Promise<Verb[]> => {
-  const now = Date.now()
-
   const rows = await sql<Array<{ data: Verb }>>`
     SELECT json_data AS data
     FROM verbs
@@ -56,14 +56,11 @@ export const getConjugation = cache(async (verb: string): Promise<Conjugation | 
     const now = Date.now()
     console.time(`---sql ${now} ${verb}`)
 
-    // TODO: test ORDER BY c.json_data->>'verb' slow
     const [row] = await sql<Array<{ conjugation: Conjugation; verb: string }>>`
       SELECT c.json_data AS conjugation, v.json_data->>'verb' as verb
       FROM conjugations c
       JOIN verbs v ON v.conjugation_id = c.id
-      WHERE ${decodeURI(verb)} IN (
-        SELECT jsonb_array_elements_text(v.json_data->'forms')
-      )
+      WHERE v.json_data->'forms' ? ${decodeURI(verb)}
       LIMIT 1;
     `
 

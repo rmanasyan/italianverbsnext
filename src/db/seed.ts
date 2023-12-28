@@ -31,6 +31,7 @@ async function copyVerbs() {
     await sql`CREATE INDEX idx_conjugation_id ON verbs(conjugation_id);`
     await sql`CREATE INDEX idx_json_data_forms ON verbs USING GIN ((json_data->'forms'));`
     await sql`CREATE INDEX idx_json_data_verb ON verbs USING GIN ((json_data->'verb'));`
+    await sql`CREATE INDEX idx_json_data_featured ON verbs USING GIN ((json_data->'featured'));`
 
     const verbs = (await getVerbs()).map((verb) => {
       const { createdAt, ...data } = verb
