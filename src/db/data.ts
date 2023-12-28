@@ -19,28 +19,39 @@ import { Conjugation, Verb } from '@/types/verbs'
 // );
 
 export const getFeaturedVerbs = cache(async (): Promise<Verb[]> => {
-  const rows = await sql<Array<{ data: Verb }>>`
+  try {
+    const rows = await sql<Array<{ data: Verb }>>`
     SELECT json_data as data
     FROM verbs
     WHERE json_data->>'featured' = 'true'
     ORDER BY json_data->>'verb'
     LIMIT ${Number(process.env.FEATURED_VERBS_LIMIT || 10)};
   `
-  return rows.map((row) => row.data)
+    return rows.map((row) => row.data)
+  } catch (error) {
+    console.error('db error: ', error)
+    return []
+  }
 })
 
 export const getVerbs = cache(async (): Promise<Verb[]> => {
-  const rows = await sql<Array<{ data: Verb }>>`
+  try {
+    const rows = await sql<Array<{ data: Verb }>>`
     SELECT json_data AS data
     FROM verbs
     ORDER BY json_data->>'verb'
     LIMIT ${Number(process.env.VERBS_LIMIT || 10)};
   `
-  return rows.map((row) => row.data)
+    return rows.map((row) => row.data)
+  } catch (error) {
+    console.error('db error: ', error)
+    return []
+  }
 })
 
 export const getFilteredVerbs = cache(async (searchQuery: string): Promise<Verb[]> => {
-  const rows = await sql<Array<{ data: Verb }>>`
+  try {
+    const rows = await sql<Array<{ data: Verb }>>`
     SELECT json_data AS data
     FROM verbs
     WHERE json_data->>'verb' ILIKE ${searchQuery + '%'}
@@ -48,14 +59,15 @@ export const getFilteredVerbs = cache(async (searchQuery: string): Promise<Verb[
     LIMIT 30;
   `
 
-  return rows.map((row) => row.data)
+    return rows.map((row) => row.data)
+  } catch (error) {
+    console.error('db error: ', error)
+    return []
+  }
 })
 
 export const getConjugation = cache(async (verb: string): Promise<Conjugation | null> => {
   try {
-    const now = Date.now()
-    console.time(`---sql ${now} ${verb}`)
-
     const [row] = await sql<Array<{ conjugation: Conjugation; verb: string }>>`
       SELECT c.json_data AS conjugation, v.json_data->>'verb' as verb
       FROM conjugations c
@@ -63,8 +75,6 @@ export const getConjugation = cache(async (verb: string): Promise<Conjugation | 
       WHERE v.json_data->'forms' ? ${decodeURI(verb)}
       LIMIT 1;
     `
-
-    console.timeEnd(`---sql ${now} ${verb}`)
 
     if (!row) {
       return null

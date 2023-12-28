@@ -1,8 +1,5 @@
-import { Timestamp } from 'firebase-admin/firestore'
-
 export interface Verb {
   conjugationId: string
-  createdAt?: Timestamp
   forms: string[]
   id: string
   verb: string
@@ -23,7 +20,6 @@ export interface VerbTense {
 
 export interface Conjugation {
   auxiliaries: string[]
-  createdAt?: Timestamp
   examples: string[]
   id: string
   verb: string

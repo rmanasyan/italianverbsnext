@@ -6,6 +6,6 @@ Search, conjugate all* the Italian verbs
 
 Fast, simple, user-friendly
 
-Build with Next.js, Firebase, Tailwind CSS
+Build with Next.js, PostgreSQL, Tailwind CSS
 
 _*~12K verbs_
