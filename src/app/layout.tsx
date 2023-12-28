@@ -10,9 +10,9 @@ import { Header } from '@/components/header'
 import { Search } from '@/components/search'
 
 export const metadata: Metadata = {
-  title: 'Italian Verbs Conjugation',
+  title: 'Italian Verbs Conjugation | Verbi Italiani',
   description:
-    'Search and conjugate Italian verbs. Fast and easy to use, no ads. More than 12000 Italian verbs with forms',
+    'Search and conjugate Italian verbs, verbi Italiani. Fast and easy to use, no ads. More than 12000 Italian verbs with forms',
   creator: 'Roman Manasyan',
   metadataBase: new URL(siteConfig.url),
   manifest: '/manifest.webmanifest',

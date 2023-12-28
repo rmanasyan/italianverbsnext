@@ -24,8 +24,8 @@ export async function generateMetadata({ params }: VerbPageProps): Promise<Metad
   }
 
   return {
-    title: `${capitalizedVerb} Italian verb conjugation | Conjugate verb ${verb}`,
-    description: `Conjugate Italian verb ${verb}: indicativo, congiuntivo, condizionale, imperativo, infinito, participio and gerundio forms of the verb ${verb}`,
+    title: `${capitalizedVerb} Italian verb conjugation | Conjugate verb ${verb} | Verbo Italiano`,
+    description: `Conjugate Italian verb ${verb}, verbo Italiano: indicativo, congiuntivo, condizionale, imperativo, infinito, participio and gerundio forms of the verb ${verb}`,
     alternates: {
       ...(isVerbForm && { canonical: '/' + conjugation?.verb })
     }
