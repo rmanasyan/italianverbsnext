@@ -20,6 +20,7 @@
     "lucide-react": "latest",
     "next": "^14.0.2",
     "postcss": "^8.4.25",
+    "postgres": "^3.4.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "swr": "^2.2.0",

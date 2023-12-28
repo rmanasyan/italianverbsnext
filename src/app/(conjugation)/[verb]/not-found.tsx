@@ -9,10 +9,7 @@ export default function NotFound() {
         <div>Italian verb not found</div>
       </PageHeading>
 
-      <p className={'p-5'}>
-        It is either non-existent or the Italians invented something new
-        ¯\_(ツ)_/¯
-      </p>
+      <p className={'p-5'}>It is either non-existent or the Italians invented something new ¯\_(ツ)_/¯</p>
     </>
   )
 }

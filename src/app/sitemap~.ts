@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-import { getVerbs } from '@/db/firestore'
+import { getVerbs } from '@/db/data'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const verbs = await getVerbs()
@@ -8,15 +8,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const sitemapData = verbs.map((verb) => {
     return {
       url: `${baseUrl}/${verb.verb}`,
-      lastModified: new Date(),
+      lastModified: new Date()
     }
   })
 
   return [
     {
       url: `${baseUrl}/`,
-      lastModified: new Date(),
+      lastModified: new Date()
     },
-    ...sitemapData,
+    ...sitemapData
   ]
 }

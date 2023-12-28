@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { Verb } from '@/types/verbs'
 import { getFilteredVerbsFromArray } from '@/db/filestore'
-import { getFilteredVerbs } from '@/db/firestore'
+import { getFilteredVerbs } from '@/db/data'
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)

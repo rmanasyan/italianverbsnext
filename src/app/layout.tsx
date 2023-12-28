@@ -26,20 +26,20 @@ export const metadata: Metadata = {
       {
         url: `${siteConfig.url}/og.png`,
         width: 1280,
-        height: 720,
-      },
-    ],
+        height: 720
+      }
+    ]
   },
   twitter: {
     card: 'summary_large_image',
     title: siteConfig.name,
     description: siteConfig.description,
-    images: [`${siteConfig.url}/og.png`],
+    images: [`${siteConfig.url}/og.png`]
   },
   robots: {
     index: true,
-    follow: true,
-  },
+    follow: true
+  }
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -52,9 +52,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           fontHeading.variable
         )}
       >
-        <div
-          className={'mx-auto flex min-h-screen max-w-screen-md flex-col p-8'}
-        >
+        <div className={'mx-auto flex min-h-screen max-w-screen-md flex-col p-8'}>
           <Header />
           <Search />
           <main className={'my-8 grow'}>{children}</main>

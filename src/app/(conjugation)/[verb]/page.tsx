@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { capitalize } from '@/utils/capitalize'
-import { getConjugation, getFeaturedVerbs, getVerbs } from '@/db/firestore'
+import { getConjugation, getFeaturedVerbs, getVerbs } from '@/db/data'
 import { ConjugationInfo } from '@/components/conjugation/conjugation-info'
 import { ConjugationSummary } from '@/components/conjugation/conjugation-summary'
 
@@ -9,21 +9,17 @@ interface VerbPageProps {
   params: { verb: string }
 }
 
-export async function generateMetadata({
-  params,
-}: VerbPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: VerbPageProps): Promise<Metadata> {
   const conjugation = await getConjugation(params.verb)
 
   const verb = decodeURI(params.verb)
   const isVerbForm = verb !== conjugation?.verb
 
-  const capitalizedVerb =
-    capitalize(verb) +
-    (conjugation && isVerbForm ? ` (${conjugation?.verb})` : '')
+  const capitalizedVerb = capitalize(verb) + (conjugation && isVerbForm ? ` (${conjugation?.verb})` : '')
 
   if (!conjugation) {
     return {
-      title: `${capitalizedVerb} italian verb not found`,
+      title: `${capitalizedVerb} italian verb not found`
     }
   }
 
@@ -31,20 +27,17 @@ export async function generateMetadata({
     title: `${capitalizedVerb} Italian verb conjugation | Conjugate verb ${verb}`,
     description: `Conjugate Italian verb ${verb}: indicativo, congiuntivo, condizionale, imperativo, infinito, participio and gerundio forms of the verb ${verb}`,
     alternates: {
-      ...(isVerbForm && { canonical: '/' + conjugation?.verb }),
-    },
+      ...(isVerbForm && { canonical: '/' + conjugation?.verb })
+    }
   }
 }
 
-export async function generateStaticParams(): Promise<
-  Array<VerbPageProps['params']>
-> {
+export async function generateStaticParams(): Promise<Array<VerbPageProps['params']>> {
   type StaticPages = 'featured' | 'all' | undefined
 
   let staticParams: Array<VerbPageProps['params']> = []
 
-  const generateStaticPages: StaticPages = process.env
-    .GENERATE_STATIC_PAGES as StaticPages
+  const generateStaticPages: StaticPages = process.env.GENERATE_STATIC_PAGES as StaticPages
 
   if (!generateStaticPages) {
     return []

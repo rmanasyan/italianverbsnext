@@ -3,9 +3,9 @@ import { DocumentData, QuerySnapshot } from 'firebase-admin/firestore'
 import { Conjugation, Verb } from '@/types/verbs'
 import { firebase } from '@/db/firebase'
 
-const firestore = firebase.firestore()
+export const firestore = firebase.firestore()
 
-const collectionData = async <T extends DocumentData>(
+export const collectionData = async <T extends DocumentData>(
   collectionRef: FirebaseFirestore.Query<DocumentData>
 ): Promise<T[]> => {
   try {
@@ -13,7 +13,7 @@ const collectionData = async <T extends DocumentData>(
 
     const documents: DocumentData[] = snapshot.docs.map((doc) => ({
       id: doc.id,
-      ...doc.data(),
+      ...doc.data()
     }))
 
     return documents as T[]
@@ -42,51 +42,46 @@ export const getVerbs = cache((): Promise<Verb[]> => {
   return collectionData<Verb>(collectionRef)
 })
 
-export const getFilteredVerbs = cache(
-  (searchQuery: string): Promise<Verb[]> => {
-    const collectionRef: FirebaseFirestore.Query<DocumentData> = firestore
-      .collection('verbs')
-      .where('verb', '>=', searchQuery)
-      .where('verb', '<=', searchQuery + '\uf8ff')
-      .orderBy('verb')
-      .limit(20)
+export const getFilteredVerbs = cache((searchQuery: string): Promise<Verb[]> => {
+  const collectionRef: FirebaseFirestore.Query<DocumentData> = firestore
+    .collection('verbs')
+    .where('verb', '>=', searchQuery)
+    .where('verb', '<=', searchQuery + '\uf8ff')
+    .orderBy('verb')
+    .limit(20)
 
-    return collectionData<Verb>(collectionRef)
+  return collectionData<Verb>(collectionRef)
+})
+
+export const getConjugation = cache(async (verb: string): Promise<Conjugation | null> => {
+  const verbsRef: FirebaseFirestore.Query<DocumentData> = firestore
+    .collection('verbs')
+    .where('forms', 'array-contains', decodeURI(verb))
+    .orderBy('verb')
+    .limit(2)
+
+  console.time(`--- ${verb}`)
+
+  const [verbData] = await collectionData<Verb>(verbsRef)
+
+  if (!verbData) {
+    return null
   }
-)
 
-export const getConjugation = cache(
-  async (verb: string): Promise<Conjugation | null> => {
-    const verbsRef: FirebaseFirestore.Query<DocumentData> = firestore
-      .collection('verbs')
-      .where('forms', 'array-contains', decodeURI(verb))
-      .orderBy('verb')
-      .limit(2)
+  try {
+    const conjugationData = (await firestore.collection(`conjugations`).doc(verbData.conjugationId).get()).data()
 
-    const [verbData] = await collectionData<Verb>(verbsRef)
+    console.timeEnd(`--- ${verb}`)
 
-    if (!verbData) {
-      return null
-    }
-
-    try {
-      const conjugationData = (
-        await firestore
-          .collection(`conjugations`)
-          .doc(verbData.conjugationId)
-          .get()
-      ).data()
-
-      return {
-        ...conjugationData,
-        verb: verbData.verb,
-      } as Conjugation
-    } catch (error) {
-      console.error('Error getting document data: ', error)
-      return null
-    }
+    return {
+      ...conjugationData,
+      verb: verbData.verb
+    } as Conjugation
+  } catch (error) {
+    console.error('Error getting document data: ', error)
+    return null
   }
-)
+})
 
 // update firestore collection with featured field
 const makeFeaturedVerbs = () => {

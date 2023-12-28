@@ -2,7 +2,7 @@ import { Timestamp } from 'firebase-admin/firestore'
 
 export interface Verb {
   conjugationId: string
-  createdAt: Timestamp
+  createdAt?: Timestamp
   forms: string[]
   id: string
   verb: string
@@ -23,8 +23,9 @@ export interface VerbTense {
 
 export interface Conjugation {
   auxiliaries: string[]
-  createdAt: Timestamp
+  createdAt?: Timestamp
   examples: string[]
+  id: string
   verb: string
   tenses: {
     [key: number]: VerbTense
@@ -38,7 +39,7 @@ export enum ConjugationGroup {
   Imperativo,
   Infinito,
   Participio,
-  Gerundio,
+  Gerundio
 }
 
 export interface ConjugationDisplaySetting {
