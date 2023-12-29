@@ -1,14 +1,8 @@
 'use client'
 
-import {
-  FormEvent,
-  KeyboardEvent as ReactKeyboardEvent,
-  useEffect,
-  useRef,
-  useState,
-  useTransition,
-} from 'react'
+import { FormEvent, KeyboardEvent as ReactKeyboardEvent, useEffect, useRef, useState, useTransition } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { Loader as IconLoader, Search as IconSearch } from 'lucide-react'
 import useSWR from 'swr'
 import { twMerge } from 'tailwind-merge'
@@ -69,9 +63,7 @@ export function SearchForm() {
 
       case 'ArrowDown':
         event.preventDefault()
-        setCurrentIndex((index) =>
-          Math.min((filteredVerbs?.length ?? 0) - 1, index + 1)
-        )
+        setCurrentIndex((index) => Math.min((filteredVerbs?.length ?? 0) - 1, index + 1))
         break
 
       case 'ArrowLeft':
@@ -102,7 +94,7 @@ export function SearchForm() {
   // scroll search results when using arrow keys
   useEffect(() => {
     optionsRef.current[currentIndex]?.scrollIntoView({
-      block: 'nearest',
+      block: 'nearest'
     })
   }, [currentIndex])
 
@@ -124,31 +116,15 @@ export function SearchForm() {
   return (
     <>
       <form role="search" onSubmit={handleSubmit} className={'group relative'}>
-        <div
-          className={
-            'pointer-events-none absolute inset-y-0 left-4 flex items-center'
-          }
-          aria-hidden="true"
-        >
+        <div className={'pointer-events-none absolute inset-y-0 left-4 flex items-center'} aria-hidden="true">
           {isLoading || isPending ? (
-            <IconLoader
-              strokeWidth={1}
-              className="animate-spin text-primary-500"
-            />
+            <IconLoader strokeWidth={1} className="animate-spin text-primary-500" />
           ) : (
-            <IconSearch
-              strokeWidth={1}
-              className="text-primary-500 transition group-focus-within:text-accent-500"
-            />
+            <IconSearch strokeWidth={1} className="text-primary-500 transition group-focus-within:text-accent-500" />
           )}
         </div>
 
-        <div
-          className={
-            'pointer-events-none absolute inset-y-0 right-4 flex items-center'
-          }
-          aria-hidden="true"
-        >
+        <div className={'pointer-events-none absolute inset-y-0 right-4 flex items-center'} aria-hidden="true">
           <span
             className={
               'grid h-6 w-6 place-items-center rounded border bg-primary-50 leading-3 text-primary-300 opacity-100 transition group-focus-within:opacity-0'
@@ -189,11 +165,10 @@ export function SearchForm() {
                 <span
                   className={twMerge(
                     'rounded-sm underline decoration-1 underline-offset-2 transition group-hover/item:bg-accent-100 group-hover/item:decoration-accent-400',
-                    index === currentIndex &&
-                      'bg-accent-100 decoration-accent-400'
+                    index === currentIndex && 'bg-accent-100 decoration-accent-400'
                   )}
                 >
-                  {verb.verb}
+                  <Link href={verb.verb}>{verb.verb}</Link>
                 </span>
               </li>
             ))}
