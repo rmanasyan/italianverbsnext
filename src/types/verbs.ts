@@ -6,6 +6,12 @@ export interface Verb {
   featured?: boolean
 }
 
+export interface VerbFiltered {
+  id: string
+  path: string
+  title: string
+}
+
 export interface VerbForm {
   form: string
   pronoun: string

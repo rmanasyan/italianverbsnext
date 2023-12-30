@@ -6,11 +6,11 @@ import Link from 'next/link'
 import { Loader as IconLoader, Search as IconSearch } from 'lucide-react'
 import useSWR from 'swr'
 import { twMerge } from 'tailwind-merge'
-import { Verb } from '@/types/verbs'
+import { VerbFiltered } from '@/types/verbs'
 import { useClickAway } from '@/hooks/use-click-away'
 import { useDebounce } from '@/hooks/use-debounce'
 
-async function fetcher([url, query]: [string, string]): Promise<Verb[]> {
+async function fetcher([url, query]: [string, string]): Promise<VerbFiltered[]> {
   const data = await fetch(`${url}?q=${query}`)
   return data.json()
 }
@@ -39,7 +39,7 @@ export function SearchForm() {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const filteredVerb = filteredVerbs?.[currentIndex]?.verb
+    const filteredVerb = filteredVerbs?.[currentIndex]?.path
 
     startTransition(() => router.push(filteredVerb || query))
 
@@ -159,7 +159,7 @@ export function SearchForm() {
                 aria-selected={index === currentIndex}
                 key={verb.id}
                 ref={(element) => (optionsRef.current[index] = element)}
-                onClick={() => handleClick(verb.verb)}
+                onClick={() => handleClick(verb.path)}
                 className={'group/item cursor-pointer px-4 py-0.5'}
               >
                 <span
@@ -168,7 +168,7 @@ export function SearchForm() {
                     index === currentIndex && 'bg-accent-100 decoration-accent-400'
                   )}
                 >
-                  <Link href={verb.verb}>{verb.verb}</Link>
+                  <Link href={verb.path}>{verb.title}</Link>
                 </span>
               </li>
             ))}
