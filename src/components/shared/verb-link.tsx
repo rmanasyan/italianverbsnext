@@ -2,12 +2,9 @@ import { ComponentProps } from 'react'
 import Link from 'next/link'
 import { twMerge } from 'tailwind-merge'
 
-export function VerbLink({
-  href,
-  className,
-  children,
-  ...props
-}: ComponentProps<typeof Link>) {
+export function VerbLink({ href, className, children, ...props }: ComponentProps<typeof Link>) {
+  const prefetchDisabled = !!process.env.GENERATE_STATIC_PAGES
+
   return (
     <Link
       className={twMerge(
@@ -15,6 +12,7 @@ export function VerbLink({
         className
       )}
       href={href}
+      prefetch={!prefetchDisabled}
       {...props}
     >
       {children}

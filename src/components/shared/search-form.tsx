@@ -2,13 +2,13 @@
 
 import { FormEvent, KeyboardEvent as ReactKeyboardEvent, useEffect, useRef, useState, useTransition } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
-import Link from 'next/link'
 import { Loader as IconLoader, Search as IconSearch } from 'lucide-react'
 import useSWR from 'swr'
 import { twMerge } from 'tailwind-merge'
 import { VerbFiltered } from '@/types/verbs'
 import { useClickAway } from '@/hooks/use-click-away'
 import { useDebounce } from '@/hooks/use-debounce'
+import { VerbLink } from '@/components/shared/verb-link'
 
 async function fetcher([url, query]: [string, string]): Promise<VerbFiltered[]> {
   const data = await fetch(`${url}?q=${query}`)
@@ -162,14 +162,15 @@ export function SearchForm() {
                 onClick={() => handleClick(verb.path)}
                 className={'group/item cursor-pointer px-4 py-0.5'}
               >
-                <span
+                <VerbLink
+                  href={verb.path}
                   className={twMerge(
-                    'rounded-sm underline decoration-1 underline-offset-2 transition group-hover/item:bg-accent-100 group-hover/item:decoration-accent-400',
+                    'group-hover/item:bg-accent-100 group-hover/item:decoration-accent-400',
                     index === currentIndex && 'bg-accent-100 decoration-accent-400'
                   )}
                 >
-                  <Link href={verb.path}>{verb.title}</Link>
-                </span>
+                  {verb.title}
+                </VerbLink>
               </li>
             ))}
           </ul>
