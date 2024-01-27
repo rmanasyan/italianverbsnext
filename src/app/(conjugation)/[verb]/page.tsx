@@ -4,6 +4,7 @@ import { capitalize } from '@/utils/capitalize'
 import { getConjugation, getFeaturedVerbs, getVerbs } from '@/db/data'
 import { ConjugationInfo } from '@/components/conjugation/conjugation-info'
 import { ConjugationSummary } from '@/components/conjugation/conjugation-summary'
+import { RelatedVerbs } from '@/components/conjugation/related-verbs'
 
 interface VerbPageProps {
   params: { verb: string }
@@ -62,9 +63,13 @@ export default async function VerbPage({ params }: VerbPageProps) {
   }
 
   return (
-    <section lang="it">
-      <ConjugationSummary conjugation={conjugation} paramsVerb={params.verb} />
-      <ConjugationInfo conjugation={conjugation} />
-    </section>
+    <>
+      <section lang="it">
+        <ConjugationSummary conjugation={conjugation} paramsVerb={params.verb} />
+        <ConjugationInfo conjugation={conjugation} />
+      </section>
+
+      <RelatedVerbs relatedTo={params.verb} />
+    </>
   )
 }

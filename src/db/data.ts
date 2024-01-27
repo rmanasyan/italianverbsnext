@@ -36,6 +36,22 @@ export const getFeaturedVerbs = cache(async (): Promise<Verb[]> => {
   }
 })
 
+export const getRelatedVerbs = cache(async (verb: string): Promise<Verb[]> => {
+  try {
+    const rows = await sql<Array<{ data: Verb }>>`
+    SELECT json_data as data
+    FROM verbs
+    WHERE json_data->>'verb' > ${verb}
+    ORDER BY json_data->>'verb'
+    LIMIT 12;
+  `
+    return rows.map((row) => row.data)
+  } catch (error) {
+    console.error('db error: ', error)
+    return []
+  }
+})
+
 export const getVerbs = cache(async (): Promise<Verb[]> => {
   try {
     const rows = await sql<Array<{ data: Verb }>>`
