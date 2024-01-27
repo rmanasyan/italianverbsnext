@@ -10,7 +10,7 @@ import { Header } from '@/components/header'
 import { Search } from '@/components/search'
 
 export const metadata: Metadata = {
-  title: 'Italian Verbs Conjugation | Verbi Italiani',
+  title: 'Italian Verbs Conjugation',
   description:
     'Search and conjugate Italian verbs, verbi Italiani. Fast and easy to use, no ads. More than 12000 Italian verbs with forms',
   creator: 'Roman Manasyan',
