@@ -88,7 +88,7 @@ export function SearchForm() {
     }
 
     document.addEventListener('keyup', onKeyup)
-    return () => document.removeEventListener('keydown', onKeyup)
+    return () => document.removeEventListener('keyup', onKeyup)
   }, [])
 
   // scroll search results when using arrow keys
