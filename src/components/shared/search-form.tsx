@@ -18,7 +18,7 @@ async function fetcher([url, query]: [string, string]): Promise<VerbFiltered[]> 
 export function SearchForm() {
   const router = useRouter()
   const pathname = usePathname()
-  const optionsRef = useRef<Array<HTMLLIElement | null>>([])
+  const optionsRef = useRef<(HTMLLIElement | null)[]>([])
   const inputRef = useRef<HTMLInputElement | null>(null)
 
   const [query, setQuery] = useState('')
@@ -158,7 +158,9 @@ export function SearchForm() {
                 role="option"
                 aria-selected={index === currentIndex}
                 key={verb.id}
-                ref={(element) => (optionsRef.current[index] = element)}
+                ref={(element) => {
+                  optionsRef.current[index] = element
+                }}
                 onClick={() => handleClick(verb.path)}
                 className={'group/item cursor-pointer px-4 py-0.5'}
               >
