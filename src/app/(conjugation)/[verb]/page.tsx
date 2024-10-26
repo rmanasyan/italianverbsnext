@@ -1,16 +1,19 @@
-import { Metadata } from 'next'
-import { notFound } from 'next/navigation'
-import { capitalize } from '@/utils/capitalize'
-import { getConjugation, getFeaturedVerbs, getVerbs } from '@/db/data'
 import { ConjugationInfo } from '@/components/conjugation/conjugation-info'
 import { ConjugationSummary } from '@/components/conjugation/conjugation-summary'
 import { RelatedVerbs } from '@/components/conjugation/related-verbs'
+import { getConjugation, getFeaturedVerbs, getVerbs } from '@/db/data'
+import { capitalize } from '@/utils/capitalize'
+import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+
+type VerbParam = { verb: string }
 
 interface VerbPageProps {
-  params: { verb: string }
+  params: Promise<VerbParam>
 }
 
-export async function generateMetadata({ params }: VerbPageProps): Promise<Metadata> {
+export async function generateMetadata(props: VerbPageProps): Promise<Metadata> {
+  const params = await props.params
   const conjugation = await getConjugation(params.verb)
 
   const verb = decodeURI(params.verb)
@@ -33,10 +36,10 @@ export async function generateMetadata({ params }: VerbPageProps): Promise<Metad
   }
 }
 
-export async function generateStaticParams(): Promise<Array<VerbPageProps['params']>> {
+export async function generateStaticParams(): Promise<VerbParam[]> {
   type StaticPages = 'featured' | 'all' | undefined
 
-  let staticParams: Array<VerbPageProps['params']> = []
+  let staticParams: VerbParam[] = []
 
   const generateStaticPages: StaticPages = process.env.GENERATE_STATIC_PAGES as StaticPages
 
@@ -55,7 +58,8 @@ export async function generateStaticParams(): Promise<Array<VerbPageProps['param
   return staticParams.map((verb) => ({ verb: verb.verb }))
 }
 
-export default async function VerbPage({ params }: VerbPageProps) {
+export default async function VerbPage(props: VerbPageProps) {
+  const params = await props.params
   const conjugation = await getConjugation(params.verb)
 
   if (!conjugation) {
