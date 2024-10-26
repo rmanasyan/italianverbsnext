@@ -1,19 +1,13 @@
 'use client'
 
-import { FormEvent, KeyboardEvent as ReactKeyboardEvent, useEffect, useRef, useState, useTransition } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
-import { Loader as IconLoader, Search as IconSearch } from 'lucide-react'
-import useSWR from 'swr'
-import { twMerge } from 'tailwind-merge'
-import { VerbFiltered } from '@/types/verbs'
+import { VerbLink } from '@/components/shared/verb-link'
 import { useClickAway } from '@/hooks/use-click-away'
 import { useDebounce } from '@/hooks/use-debounce'
-import { VerbLink } from '@/components/shared/verb-link'
-
-async function fetcher([url, query]: [string, string]): Promise<VerbFiltered[]> {
-  const data = await fetch(`${url}?q=${query}`)
-  return data.json()
-}
+import { useSearch } from '@/hooks/use-search'
+import { Loader as IconLoader, Search as IconSearch } from 'lucide-react'
+import { usePathname, useRouter } from 'next/navigation'
+import { FormEvent, KeyboardEvent as ReactKeyboardEvent, useEffect, useRef, useState, useTransition } from 'react'
+import { twMerge } from 'tailwind-merge'
 
 export function SearchForm() {
   const router = useRouter()
@@ -27,11 +21,7 @@ export function SearchForm() {
   const [isPending, startTransition] = useTransition()
 
   const debouncedQuery = useDebounce(query, 300)
-
-  const { data: filteredVerbs, isLoading } = useSWR(
-    debouncedQuery.length > 1 ? ['/api/verbs', debouncedQuery] : null,
-    fetcher
-  )
+  const { data: filteredVerbs, isLoading } = useSearch(debouncedQuery)
 
   const listBoxRef = useClickAway<HTMLUListElement>(() => {
     setIsOpen(false)
