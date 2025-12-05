@@ -88,36 +88,27 @@ export function SearchForm() {
     })
   }, [currentIndex])
 
-  // reset search results list selected item when query changes
-  useEffect(() => {
-    setCurrentIndex(-1)
-  }, [query])
-
-  // open search results listbox if verbs found
-  useEffect(() => {
-    setIsOpen(!!filteredVerbs?.length)
-  }, [filteredVerbs])
-
-  // close search list on navigation
-  useEffect(() => {
+  const [prevPathname, setPrevPathname] = useState(pathname)
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname)
     setIsOpen(false)
-  }, [pathname])
+  }
 
   return (
     <>
       <form role="search" onSubmit={handleSubmit} className={'group relative'}>
         <div className={'pointer-events-none absolute inset-y-0 left-4 flex items-center'} aria-hidden="true">
           {isLoading || isPending ? (
-            <IconLoader strokeWidth={1} className="animate-spin text-primary-500" />
+            <IconLoader strokeWidth={1} className="text-primary-500 animate-spin" />
           ) : (
-            <IconSearch strokeWidth={1} className="text-primary-500 transition group-focus-within:text-accent-500" />
+            <IconSearch strokeWidth={1} className="text-primary-500 group-focus-within:text-accent-500 transition" />
           )}
         </div>
 
         <div className={'pointer-events-none absolute inset-y-0 right-4 flex items-center'} aria-hidden="true">
           <span
             className={
-              'grid h-6 w-6 place-items-center rounded-sm border bg-primary-50 leading-3 text-primary-300 opacity-100 transition group-focus-within:opacity-0'
+              'bg-primary-50 text-primary-300 grid h-6 w-6 place-items-center rounded-sm border leading-3 opacity-100 transition group-focus-within:opacity-0'
             }
           >
             /
@@ -127,20 +118,24 @@ export function SearchForm() {
         <input
           type="search"
           value={query}
-          onChange={(event) => setQuery(event.target.value)}
+          onChange={(event) => {
+            setQuery(event.target.value)
+            setCurrentIndex(-1)
+            setIsOpen(true)
+          }}
           onKeyDown={handleKeyDown}
           ref={inputRef}
           className={
-            'w-full appearance-none rounded-xs border border-primary-800 bg-white px-11 py-3 caret-accent-400 outline-hidden ring-accent-100 transition focus:border-accent-400 focus:ring-4'
+            'border-primary-800 caret-accent-400 ring-accent-100 focus:border-accent-400 w-full appearance-none rounded-xs border bg-white px-11 py-3 outline-hidden transition focus:ring-4'
           }
           autoComplete={'off'}
           aria-label="Search italian verb conjugation"
         />
 
-        {isOpen && (
+        {isOpen && (filteredVerbs?.length ?? 0) > 0 && (
           <ul
             role="listbox"
-            className="absolute z-10 mt-4 max-h-60 w-full overflow-auto overscroll-contain rounded-xs border border-primary-300 bg-white/90 py-1 shadow-md backdrop-blur-xs"
+            className="border-primary-300 absolute z-10 mt-4 max-h-60 w-full overflow-auto overscroll-contain rounded-xs border bg-white/90 py-1 shadow-md backdrop-blur-xs"
             ref={listBoxRef}
           >
             {filteredVerbs?.map((verb, index) => (

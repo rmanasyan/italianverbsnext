@@ -4,15 +4,22 @@ import { useEffect, useState } from 'react'
 export function useSearch(query: string) {
   const [data, setData] = useState<VerbFiltered[]>([])
   const [isLoading, setIsLoading] = useState(false)
+  const [prevQuery, setPrevQuery] = useState(query)
+
+  if (query !== prevQuery) {
+    setPrevQuery(query)
+    if (query.length > 1) {
+      setIsLoading(true)
+    }
+  }
 
   useEffect(() => {
     if (query.length <= 1) {
-      setData([])
       return
     }
 
     let isCancelled = false
-    setIsLoading(true)
+    // Loading state is handled in render phase
 
     fetch(`/api/verbs?q=${query}`)
       .then((res) => res.json())
@@ -22,7 +29,7 @@ export function useSearch(query: string) {
           setIsLoading(false)
         }
       })
-      .catch((error) => {
+      .catch(() => {
         if (!isCancelled) {
           setData([])
           setIsLoading(false)
@@ -34,5 +41,10 @@ export function useSearch(query: string) {
     }
   }, [query])
 
-  return { data, isLoading }
+  const shouldReturnEmpty = query.length <= 1
+
+  return {
+    data: shouldReturnEmpty ? [] : data,
+    isLoading: shouldReturnEmpty ? false : isLoading
+  }
 }

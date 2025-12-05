@@ -1,16 +1,16 @@
 // ht: https://github.com/uidotdev/usehooks/blob/main/index.js
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useEffectEvent, useRef } from 'react'
 
-export function useClickAway<T extends HTMLElement>(cb: () => void) {
+export function useClickAway<T extends HTMLElement>(cb: (e: MouseEvent | TouchEvent) => void) {
   const ref = useRef<T>(null)
-  const refCb = useRef(cb)
+  const onEvent = useEffectEvent(cb)
 
   useEffect(() => {
-    const handler = (e: any) => {
+    const handler = (e: MouseEvent | TouchEvent) => {
       const element = ref.current
-      if (element && !element.contains(e.target)) {
-        refCb.current()
+      if (element && !element.contains(e.target as Node)) {
+        onEvent(e)
       }
     }
 

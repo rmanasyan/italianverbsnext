@@ -16,7 +16,7 @@ export async function FeaturedVerbs() {
     }
   })
 
-  return formattedVerbs.map((verb, index) => (
+  return formattedVerbs.map((verb) => (
     <React.Fragment key={verb.id}>
       <VerbLink className={verb.className} href={verb.verb}>
         {verb.verb}
