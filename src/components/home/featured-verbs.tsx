@@ -1,6 +1,7 @@
-import { Verb } from '@/types/verbs'
-import { getFeaturedVerbs } from '@/db/data'
 import { VerbLink } from '@/components/shared/verb-link'
+import { getFeaturedVerbs } from '@/db/data'
+import { Verb } from '@/types/verbs'
+import React from 'react'
 
 export async function FeaturedVerbs() {
   const verbs = await getFeaturedVerbs()
@@ -16,12 +17,12 @@ export async function FeaturedVerbs() {
   })
 
   return formattedVerbs.map((verb, index) => (
-    <>
-      <VerbLink className={verb.className} href={verb.verb} key={verb.id}>
+    <React.Fragment key={verb.id}>
+      <VerbLink className={verb.className} href={verb.verb}>
         {verb.verb}
       </VerbLink>
 
       {!verb.isLast && ', '}
-    </>
+    </React.Fragment>
   ))
 }
