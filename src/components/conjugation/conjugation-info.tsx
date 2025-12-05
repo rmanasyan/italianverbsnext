@@ -42,7 +42,7 @@ export function ConjugationInfo({ conjugation }: ConjugationInfoProps) {
             <Link
               href={`#${conjugationGroup.name.toLowerCase()}`}
               className={
-                'absolute -left-6 text-primary-400 opacity-0 outline-none transition hover:text-accent-700 focus-visible:opacity-100 group-hover:opacity-100'
+                'absolute -left-6 text-primary-400 opacity-0 outline-hidden transition hover:text-accent-700 focus-visible:opacity-100 group-hover:opacity-100'
               }
             >
               #

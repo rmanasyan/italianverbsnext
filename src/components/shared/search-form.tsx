@@ -117,7 +117,7 @@ export function SearchForm() {
         <div className={'pointer-events-none absolute inset-y-0 right-4 flex items-center'} aria-hidden="true">
           <span
             className={
-              'grid h-6 w-6 place-items-center rounded border bg-primary-50 leading-3 text-primary-300 opacity-100 transition group-focus-within:opacity-0'
+              'grid h-6 w-6 place-items-center rounded-sm border bg-primary-50 leading-3 text-primary-300 opacity-100 transition group-focus-within:opacity-0'
             }
           >
             /
@@ -131,7 +131,7 @@ export function SearchForm() {
           onKeyDown={handleKeyDown}
           ref={inputRef}
           className={
-            'w-full appearance-none rounded-sm border border-primary-800 bg-white px-11 py-3 caret-accent-400 outline-none ring-accent-100 transition focus:border-accent-400 focus:ring-4'
+            'w-full appearance-none rounded-xs border border-primary-800 bg-white px-11 py-3 caret-accent-400 outline-hidden ring-accent-100 transition focus:border-accent-400 focus:ring-4'
           }
           autoComplete={'off'}
           aria-label="Search italian verb conjugation"
@@ -140,7 +140,7 @@ export function SearchForm() {
         {isOpen && (
           <ul
             role="listbox"
-            className="absolute z-10 mt-4 max-h-60 w-full overflow-auto overscroll-contain rounded-sm border border-primary-300 bg-white/90 py-1 shadow-md backdrop-blur-sm"
+            className="absolute z-10 mt-4 max-h-60 w-full overflow-auto overscroll-contain rounded-xs border border-primary-300 bg-white/90 py-1 shadow-md backdrop-blur-xs"
             ref={listBoxRef}
           >
             {filteredVerbs?.map((verb, index) => (

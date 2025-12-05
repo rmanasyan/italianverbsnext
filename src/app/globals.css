@@ -1,6 +1,49 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-white: #fff;
+
+  --color-primary-50: #f9fafb;
+  --color-primary-100: #f3f4f6;
+  --color-primary-200: #e5e7eb;
+  --color-primary-300: #d1d5db;
+  --color-primary-400: #9ca3af;
+  --color-primary-500: #6b7280;
+  --color-primary-600: #4b5563;
+  --color-primary-700: #374151;
+  --color-primary-800: #1f2937;
+  --color-primary-900: #111827;
+  --color-primary-950: #030712;
+
+  --color-accent-50: #f5f3ff;
+  --color-accent-100: #ede9fe;
+  --color-accent-200: #ddd6fe;
+  --color-accent-300: #c4b5fd;
+  --color-accent-400: #a78bfa;
+  --color-accent-500: #8b5cf6;
+  --color-accent-600: #7c3aed;
+  --color-accent-700: #6d28d9;
+  --color-accent-800: #5b21b6;
+  --color-accent-900: #4c1d95;
+  --color-accent-950: #2e1065;
+
+  --font-weight-*: initial;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-bold: 700;
+
+  --font-sans:
+    var(--font-sans), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-heading:
+    var(--font-heading), ui-sans-serif, system-ui, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+  --animate-pulse-fast: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
 
 @layer base {
     [type="search"]::-webkit-search-cancel-button,

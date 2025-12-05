@@ -52,7 +52,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           fontHeading.variable
         )}
       >
-        <div className={'mx-auto flex min-h-screen max-w-screen-md flex-col p-8'}>
+        <div className={'mx-auto flex min-h-screen max-w-(--breakpoint-md) flex-col p-8'}>
           <Header />
           <Search />
           <main className={'my-8 grow'}>{children}</main>
