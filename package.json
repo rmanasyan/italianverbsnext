@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "bun --bun --sql-preconnect next dev",
-    "build": "bun --bun next build",
+    "build": "bun --bun --sql-preconnect next build",
     "start": "bun --bun --sql-preconnect next start",
     "lint": "eslint .",
     "test": "bun test --env-file=.env.local",
